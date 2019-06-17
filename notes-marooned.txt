@@ -1,0 +1,27 @@
+?separate animation control script that receives events from movement/fire control?
+
+?player control script calls spell casting code with a callback to block movement if the spell needs to?
+
+raycast from the gun
+
+weapon controller keeps track of equipped weapon, plays the right anim
+
+player input raises StartFiring event
+ -semi-autos simply fire once upon receiving the event
+ -autos set state to firing, cycle
+weapons control the animation
+
+Aiming gameobject parented to Player
+position set to (muzzle.worldposition - player.worldposition) with z = 0
+- AimingPlane height set to y
+Player is rotated so that aiming object faces the raycast hit
+Weapons raycast from aiming object/muzzle?
+
+projectile types as prefabs
+the weapon spawns projectile(s) in specified direction
+
+fast non-hitscan projectiles raycast from their previous position to detect hits
+
+TODO: check firerate timeout
+
+what's the right way to render lasers?
