@@ -16,12 +16,15 @@ public class Enemy : MonoBehaviour
 
     private float attackTimeout = 0f;
 
+    [SerializeField] private GameObject drop;
+
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Unit>();
         animator = GetComponentInChildren<Animator>();
         GetComponent<Unit>().UnitDeath += Die;
+        //GetComponent<Unit>().HealthChanged += (int health, int maxHealth) => { }; // this could be the hit reaction
         StartCoroutine(SetDirection());
     }
 
@@ -79,6 +82,8 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         StopAllCoroutines();
+        if (Random.Range(0f, 1f) < 0.3f)
+            Instantiate(drop, transform.position, Quaternion.identity);
         transform.forward = Quaternion.Euler(0, Utility.Gaussian(45), 0) * transform.forward;
         animator.SetTrigger("Die");
         this.enabled = false;

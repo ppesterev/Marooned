@@ -30,6 +30,7 @@ public class PlayerInputController : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
 
         aimingLine = GameObject.Find("AimingLine");
+        GetComponent<Unit>().UnitDeath += () => { enabled = false; };
     }
 
     // Update is called once per frame

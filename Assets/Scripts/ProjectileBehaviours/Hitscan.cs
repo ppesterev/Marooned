@@ -17,6 +17,9 @@ public class Hitscan : MonoBehaviour
         int enemiesOnlyMask = 1 << 9; // centralized place for these, like an enumeration?
         RaycastHit[] hits = Physics.RaycastAll(transform.position, transform.forward, Mathf.Infinity, enemiesOnlyMask);
 
+        Vector3 defaultLineEnd = transform.position + transform.forward * 20f;
+        StartCoroutine(RenderLine(hits.Length >= penetration ? hits[penetration - 1].point : defaultLineEnd));
+
         if (hits.Length > 0)
         {
             System.Array.Sort(hits, (RaycastHit x, RaycastHit y) => { return x.distance < y.distance ? -1 : 1; });
@@ -27,10 +30,6 @@ public class Hitscan : MonoBehaviour
                 hitEnemy.TakeDamage(damage);
             }
         }
-
-        Vector3 defaultLineEnd = transform.position + transform.forward * 20f;
-        IEnumerator coroutine = RenderLine(hits.Length >= penetration? hits[penetration - 1].point : defaultLineEnd);
-        StartCoroutine(coroutine);
     }
 
     IEnumerator RenderLine(Vector3 lineEnd)

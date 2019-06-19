@@ -7,12 +7,14 @@ public class Unit : MonoBehaviour
     private Animator animator;
 
     public int Health { get; private set; }
+    public int MaxHealth { get; private set; }
     private bool dead = false;
 
     public System.Action UnitDeath;
+    public System.Action<int, int> HealthChanged;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Init(100);
     }
@@ -26,6 +28,7 @@ public class Unit : MonoBehaviour
     public void Init(int health)
     {
         Health = health;
+        MaxHealth = health;
     }
 
     public void TakeDamage(int value)
@@ -34,6 +37,8 @@ public class Unit : MonoBehaviour
             return;
 
         Health -= value;
+        HealthChanged?.Invoke(Health, MaxHealth);
+
         if (Health <= 0)
         {
             dead = true;

@@ -5,7 +5,8 @@ using UnityEngine;
 public class WeaponController : MonoBehaviour
 {
     [SerializeField] private GameObject muzzle;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private string weaponId;
+    private GameObject projectilePrefab;
     private Weapon equippedWeapon;
     private Animator animator;
 
@@ -13,9 +14,12 @@ public class WeaponController : MonoBehaviour
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        equippedWeapon = new Weapon("laser rifle", projectilePrefab, true, 20, 3, 1, 1);
+
         PlayerInputController.Instance.StartFiring += StartFiring;
         PlayerInputController.Instance.StopFiring += StopFiring;
+
+        equippedWeapon = WeaponsFactory.instance.GetWeapon(weaponId);
+        projectilePrefab = WeaponsFactory.instance.GetProjectilePrefab(equippedWeapon.ProjectilePrefabId);
     }
 
     // Update is called once per frame
@@ -38,17 +42,16 @@ public class WeaponController : MonoBehaviour
 
     private IEnumerator Fire()
     {
-        float spread = equippedWeapon.SpreadAngle * 2 * Mathf.PI / 360f;
+        float spreadRadians = equippedWeapon.SpreadAngle * 2 * Mathf.PI / 360f;
         while (true)
         {
             //raycast or launch projectile
-            //Debug.DrawRay(muzzle.transform.position, (this.transform.forward + this.transform.right * GetGaussian(spread / 3f)) * 100, Color.cyan, 0.05f);
 
-            Vector3[] directions = new Vector3[equippedWeapon.Multishot];
-            for (int i = 0; i < directions.Length; i++)
+            //Vector3[] directions = new Vector3[equippedWeapon.Multishot];
+            for (int i = 0; i < equippedWeapon.Multishot; i++)
             {
-                Instantiate(equippedWeapon.ProjectilePrefab, muzzle.transform.position,
-                            Quaternion.LookRotation(this.transform.forward + this.transform.right * Utility.Gaussian(spread / 3f), this.transform.up));
+                Instantiate(projectilePrefab, muzzle.transform.position,
+                            Quaternion.LookRotation(this.transform.forward + this.transform.right * Utility.Gaussian(spreadRadians / 3f), this.transform.up));
             }
 
             if (equippedWeapon.FullAuto)
@@ -56,5 +59,16 @@ public class WeaponController : MonoBehaviour
             else
                 yield break;
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Pickup pickup = other.GetComponent<Pickup>();
+        if (pickup == null || pickup.weapon == null)
+            return;
+
+        equippedWeapon = pickup.weapon;
+        projectilePrefab = WeaponsFactory.instance.GetProjectilePrefab(equippedWeapon.ProjectilePrefabId); //TODO clean up this horseshit
+        Destroy(pickup.gameObject);
     }
 }

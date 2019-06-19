@@ -2,24 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Weapon
 {
-    public string Name { get; private set; }
-    public GameObject ProjectilePrefab { get; private set; }
-    public bool FullAuto { get; private set; }
-    public float Damage { get; private set; }
-    public float FireRate { get; private set; }
-    public float SpreadAngle { get; private set; }
-    public int Multishot { get; private set; }
+    public string Id => id;
+    public string ProjectilePrefabId => projectilePrefabId;
+    public bool FullAuto => fullAuto;
+    public float Damage => damage;
+    public float FireRate => fireRate;
+    public float SpreadAngle => spreadAngle;
+    public int Multishot => multishot;
 
-    public Weapon(string name, GameObject projectilePrefab, bool fullauto, float damage, float firerate, float spreadangle, int multishot)
-    {
-        Name = name;
-        ProjectilePrefab = projectilePrefab;
-        FullAuto = fullauto;
-        Damage = damage;
-        FireRate = firerate;
-        SpreadAngle = spreadangle;
-        Multishot = multishot;
-    }
+    [SerializeField] private string id;
+    [SerializeField] private string projectilePrefabId;
+    [SerializeField] private bool fullAuto;
+    [SerializeField] private float damage;
+    [SerializeField] private float fireRate;
+    [SerializeField] private float spreadAngle;
+    [SerializeField] private int multishot;
 }

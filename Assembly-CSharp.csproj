@@ -60,16 +60,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\HealthDisplay.cs" />
+    <Compile Include="Assets\Pickup.cs" />
     <Compile Include="Assets\Scripts\CastingController.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemySpawner.cs" />
     <Compile Include="Assets\Scripts\PlayerInputController.cs" />
     <Compile Include="Assets\Scripts\PlayerTracker.cs" />
     <Compile Include="Assets\Scripts\ProjectileBehaviours\Hitscan.cs" />
+    <Compile Include="Assets\Scripts\SimpleJSON.cs" />
     <Compile Include="Assets\Scripts\Unit.cs" />
     <Compile Include="Assets\Scripts\Utility.cs" />
     <Compile Include="Assets\Scripts\Weapon.cs" />
     <Compile Include="Assets\Scripts\WeaponController.cs" />
+    <Compile Include="Assets\WeaponsFactory.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/Users/heisenderp/unity/Marooned/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

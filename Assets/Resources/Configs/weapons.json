@@ -1,0 +1,31 @@
+{
+    "laser_rifle":
+    {
+        "projectilePrefabId": "laser",
+        "fullAuto": "false",
+        "damage": "60",
+        "fireRate": "2.0",
+        "spreadAngle": "3.0",
+        "multishot": "1"
+    },
+
+    "gauss_rifle":
+    {
+        "projectilePrefabId": "gauss",
+        "fullAuto": "false",
+        "damage": "100",
+        "fireRate": "1.5",
+        "spreadAngle": "1.0",
+        "multishot": "1"
+    },
+
+    "gauss_shotgun":
+    {
+        "projectilePrefabId": "gauss",
+        "fullAuto": "false",
+        "damage": "70",
+        "fireRate": "1.2",
+        "spreadAngle": "15.0",
+        "multishot": "5"
+    }
+}
