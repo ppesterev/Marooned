@@ -15,7 +15,8 @@ public class Enemy : MonoBehaviour
     private float attackDelay = 0.1f;
 
     private float attackTimeout = 0f;
-
+    private float cooldown = 0f;
+    
     [SerializeField] private GameObject drop;
 
     // Start is called before the first frame update
